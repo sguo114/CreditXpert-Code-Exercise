@@ -9,9 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient<ICountryService, CountryService>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowFrontendApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") 
+        var allowedOrigins = builder.Configuration["ALLOWED_ORIGINS"] ?? "http://localhost:5173";
+        policy.WithOrigins(allowedOrigins) 
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -32,6 +33,6 @@ if (!app.Environment.IsProduction())
 {
     app.UseHttpsRedirection();
 }
-app.UseCors("AllowReactApp");
+app.UseCors("AllowFrontendApp");
 app.MapControllers();
 app.Run();
