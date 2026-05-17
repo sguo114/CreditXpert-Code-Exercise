@@ -1,0 +1,113 @@
+/* --- CARDS RESPONSIVE GRID --- */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.country-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.country-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--text-muted);
+}
+
+.flag-wrapper {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  background-color: #f1f5f9;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.flag-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+}
+
+.card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.country-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.official-name {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-subtle);
+  margin-bottom: 1rem;
+  margin-top: auto;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.meta-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.meta-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- SKELETON LOADING ANIMATION --- */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+  display: inline-block;
+}
+
+.skeleton-text {
+  height: 1.5rem;
+  width: 100%;
+}
+
+.skeleton-card-flag {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+@keyframes loading-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
