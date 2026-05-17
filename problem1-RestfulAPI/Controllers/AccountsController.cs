@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using problem1_RestfulAPI.Models;
 using problem1_RestfulAPI.Services.Contracts;
 
 namespace problem1_RestfulAPI.Controllers;
@@ -29,7 +28,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateAccount([FromBody] CreditAccount account)
+    public IActionResult CreateAccount([FromBody] CreateAccountDto account)
     {
         if (string.IsNullOrEmpty(account.OwnerName) || account.CreditLimit < 0)
             return BadRequest("Invalid account data.");
@@ -39,11 +38,8 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult UpdateAccount(int id, [FromBody] CreditAccount account)
+    public IActionResult UpdateAccount(int id, [FromBody] UpdateAccountDto account)
     {
-        if (id != account.Id)
-            return BadRequest("ID mismatch between URL and request body.");
-
         var updated = _accountService.Update(id, account);
         if (!updated) return NotFound($"Account with ID {id} not found.");
 

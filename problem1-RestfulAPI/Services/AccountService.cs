@@ -18,18 +18,34 @@ public class AccountService : IAccountService
 
     public CreditAccount? GetById(int id) => _accountRepository.GetById(id);
 
-    public CreditAccount Create(CreditAccount account)
+    public CreditAccount Create(CreateAccountDto dto)
     {
         var allAccounts = _accountRepository.GetAll().ToList();
-        account.Id = allAccounts.Count != 0 ? allAccounts.Max(a => a.Id) + 1 : 1;
+        var id = allAccounts.Count != 0 ? allAccounts.Max(a => a.Id) + 1 : 1;
+        
+        var account = new CreditAccount
+        {
+            Id = id,
+            OwnerName = dto.OwnerName,
+            CreditLimit = dto.CreditLimit,
+            CurrentBalance = 0,
+            AccountStatus = AccountStatus.Active
+        };
         
         _accountRepository.Add(account);
         return account;
     }
 
-    public bool Update(int id, CreditAccount updatedAccount)
+    public bool Update(int id, UpdateAccountDto accountUpdates)
     {
-        updatedAccount.Id = id;
+        var updatedAccount = new CreditAccount
+        {
+            Id = id,
+            OwnerName = accountUpdates.OwnerName,
+            CreditLimit = accountUpdates.CreditLimit,
+            CurrentBalance = accountUpdates.CurrentBalance,
+            AccountStatus = accountUpdates.AccountStatus
+        };
         return _accountRepository.Update(updatedAccount);
     }
 
